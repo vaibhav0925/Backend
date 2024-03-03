@@ -1,0 +1,16 @@
+{
+  "name": "chai_backend",
+  "version": "1.0.0",
+  "description": "A backend learning from chai and code channel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "JavaScript",
+    "Backend",
+    "Chai"
+  ],
+  "author": "Vaibhav Shukla",
+  "license": "ISC"
+}
