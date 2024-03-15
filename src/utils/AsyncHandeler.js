@@ -1,14 +1,14 @@
 import { Promise } from "mongoose"
 
-const asyncHandelaer = (reqestHandeler) => {
-    (req, res, next) => {
-        Promise.resolve(reqestHandeler(req, res, next)).catch((err) => next(err))
+const asyncHandeler = (reqestHandler) => {
+    return (req, res, next) => {
+        Promise.resolve(reqestHandler(req, res, next)).catch((err) => next(err))
     }
 }
 
 
 
-export {asyncHandelaer}
+export {asyncHandler}
 
 
 // const asyncHolder =  () => {}
