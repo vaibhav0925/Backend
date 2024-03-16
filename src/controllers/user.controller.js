@@ -8,7 +8,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 const registerUser = asyncHandeler(async(req, res) => {
     
     const {fullName, email, username, password} = req.body 
-    console.log("email", email);
+    //console.log("email", email);
 
 
     if (
@@ -17,21 +17,26 @@ const registerUser = asyncHandeler(async(req, res) => {
         throw new Error(400, "All feilds are required")
     }
 
-    const exsistedUser = User.findOne({
+    const exsistedUser = await User.findOne({
         $or: [{username },{ email }]
     })
 
     if (exsistedUser) {
         throw new ApiError(409, "User with email or username already exists")
     }
+    console.log(req.files);
 
     const avatarLocalPath = req.files?.avatar[0]?.path;
-    const coverImageLocalPath = req.files?.coverImage[0]?.path;
+    //const coverImageLocalPath = req.files?.coverImage[0]?.path;
+
+    let coverImageLocalPath;
+    if (req.files && Array.isArray(req.files.coverImage && req.files.coverImage.length > 0)) {
+        coverImageLocalPath = req.files.coverImage[0].path
+    }
 
     if (!avatarLocalPath) {
         throw new ApiError(400, "Avatar file is required")
     }
-
     const avatar=await upload(avatarLocalPath)
     const coverImage=await upload(coverImageLocalPath)
 
@@ -40,7 +45,7 @@ const registerUser = asyncHandeler(async(req, res) => {
     }
 
     const user = await User.upload({
-        username,
+        fullName,
         avatar: avatar.url,
         coverImage: coverImage?.url || "",
         email,
