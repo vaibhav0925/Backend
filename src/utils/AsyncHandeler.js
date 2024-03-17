@@ -8,7 +8,7 @@ const asyncHandeler = (reqestHandler) => {
 
 
 
-export {asyncHandler}
+export {asyncHandeler}
 
 
 // const asyncHolder =  () => {}
